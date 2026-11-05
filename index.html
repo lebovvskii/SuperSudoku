@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f7f6f2"><meta name="description" content="Ваше судоку без рекламы. Честная проверка по логике, сохранённый прогресс и игра без интернета.">
+  <meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <link rel="manifest" href="./manifest.webmanifest"><link rel="icon" href="./icons/icon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="./icons/apple-touch-icon.png">
+  <link rel="stylesheet" href="./styles.css"><title>SuperSudoku — только вы и девять цифр</title>
+</head>
+<body>
+  <header class="header"><a href="#play" class="brand" aria-label="SuperSudoku, играть"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span>super<span>sudoku</span><small>личное пространство</small></a><nav aria-label="Основная навигация"><button class="nav-button active" data-view="play">Играть</button><button class="nav-button" data-view="progress">Прогресс</button><button class="icon-button" id="settings-button" aria-label="Настройки"></button></nav></header>
+  <main id="main">
+    <section id="play-view" class="view">
+      <div class="intro"><div><p class="eyebrow"><span></span> ПАУЗА ДЛЯ ЯСНОСТИ</p><h1>Только вы и девять цифр.</h1><p class="intro-copy">Без рекламы. Без спешки. С удовольствием.</p></div><button class="button primary new-game-button" id="new-game">Новая игра <span aria-hidden="true">↗</span></button></div>
+      <div class="game-layout">
+        <section class="board-section" aria-label="Игра судоку">
+          <div class="board-meta"><button id="difficulty-button" class="difficulty-pill"></button><div class="mistakes" id="mistakes" aria-label="Ошибки"></div><button class="timer-button" id="pause-button" aria-label="Поставить на паузу"><span id="timer">00:00</span><span id="pause-icon"></span></button></div>
+          <div class="board-shell"><div id="board" class="board" role="grid" aria-label="Поле судоку 9 на 9"></div><div class="pause-overlay hidden" id="pause-overlay"><span class="pause-orbit">Ⅱ</span><h2>Маленькая пауза</h2><p>Всё останется на своих местах.</p><button class="button primary" id="resume-button">Продолжить игру</button></div></div>
+          <div class="board-bottom"><span id="filled-count"></span><div class="board-progress"><i id="board-progress-fill"></i></div><span id="save-status" class="save-status">Сохранено на устройстве</span></div>
+        </section>
+        <aside class="game-sidebar">
+          <div class="tools" aria-label="Инструменты"><button class="tool-button" id="undo-button"></button><button class="tool-button" id="erase-button"></button><button class="tool-button" id="notes-button" aria-pressed="false"></button><button class="tool-button" id="hint-button"></button></div>
+          <div class="keypad" id="keypad" aria-label="Ввод цифр"></div>
+          <div class="logic-card"><div class="logic-icon" id="logic-icon"></div><div><h3>Логика, а не угадывание</h3><p>Ошибка засчитывается только тогда, когда её можно объяснить. Неоднозначный ход остаётся нейтральным.</p><button class="text-button" id="rules-button">Как это работает <span aria-hidden="true">↗</span></button></div></div>
+          <button class="journey-preview" id="journey-button"><span class="journey-icon" id="journey-icon"></span><span><small>ВАШ ПУТЬ</small><strong id="journey-title">Шаг за шагом</strong><span id="journey-caption"></span></span><b aria-hidden="true">↗</b></button>
+        </aside>
+      </div>
+      <div class="quiet-footer"><span id="leaf-icon"></span><span>Одна клетка за раз. Вы никуда не опаздываете.</span><span class="keyboard-tip">1–9 · цифры &nbsp; N · заметки &nbsp; ⌫ · стереть</span></div>
+    </section>
+    <section id="progress-view" class="view hidden"><div class="intro"><div><p class="eyebrow"><span></span> МАЛЕНЬКИЕ ПОБЕДЫ</p><h1>У каждого свой темп.</h1><p class="intro-copy">Ваши игры складываются в историю.</p></div><button class="button secondary" data-view="play">Вернуться к игре ↗</button></div><div id="stats" class="stats"></div><div class="section-label"><h2>Ваш путь</h2><span>Побеждайте и проходите уровни по порядку.</span></div><div id="levels" class="levels"></div><div class="section-label"><h2>Последние игры</h2></div><div id="history" class="history"></div></section>
+  </main>
+  <footer class="page-footer"><span>super<span>sudoku</span></span><span>Никакой рекламы. Только хорошая привычка.</span><button class="text-button" id="install-button">Установить приложение ↗</button></footer>
+  <dialog id="dialog"><div id="dialog-content"></div></dialog>
+  <div class="toast hidden" id="toast" role="status" aria-live="polite"></div>
+  <input type="file" id="import-input" accept="application/json,.json" hidden>
+  <noscript><p class="noscript">Для игры нужен JavaScript. Включите его и обновите страницу.</p></noscript>
+  <script type="module" src="./src/app.js"></script>
+</body></html>

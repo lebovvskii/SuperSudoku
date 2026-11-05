@@ -1,0 +1,11 @@
+node_modules/
+dist/
+.env*
+!.env.example
+hosting/node_modules/
+hosting/dist/
+hosting/public/
+hosting/.wrangler/
+test-results/
+playwright-report/
+.DS_Store
