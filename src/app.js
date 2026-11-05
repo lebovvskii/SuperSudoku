@@ -1,4 +1,4 @@
-import {LEVELS,generatePuzzle,validateEntry,findHint,isSolved} from './engine.js';
+import {LEVELS,generatePuzzle,validateEntry,findHint,isSolved,removePeerNotes} from './engine.js';
 import {loadState,saveState,saveMirror,validateState,unlockedLevelIndex,unlockDescription,storageStatus} from './storage.js';
 import {createCloudSync} from './sync.js';
 const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
@@ -39,7 +39,7 @@ async function enter(value){
     (g.rejectedAttempts??=[]).push(fingerprint);
     g.mistakes++;rejected={index:selected,value,fingerprint};toast(`${result.reason} Ошибка ${g.mistakes} из 3.`,8000);render();if(g.mistakes>=3)finish(false);await persist();return;
   }
-  snapshot();g.entries[selected]=value;g.notes[selected]=[];rejected=null;render();if(isSolved(g.givens.map((n,i)=>n||g.entries[i])))finish(true);else if(g.givens.every((n,i)=>n||g.entries[i]))toast('Поле заполнено. Проверьте, чтобы в каждой строке, столбце и квадрате были цифры 1–9 без повторений.',7500);await persist();
+  snapshot();g.entries[selected]=value;g.notes=removePeerNotes(g.notes,selected,value);rejected=null;render();if(isSolved(g.givens.map((n,i)=>n||g.entries[i])))finish(true);else if(g.givens.every((n,i)=>n||g.entries[i]))toast('Поле заполнено. Проверьте, чтобы в каждой строке, столбце и квадрате были цифры 1–9 без повторений.',7500);await persist();
 }
 function undo(){if(paused||state.game.status!=='playing')return;const last=state.game.undo.pop();if(!last)return;state.game.entries=last.entries;state.game.notes=last.notes;rejected=null;render();persist();}
 function setPause(next){clockTick();paused=next;render();persist();}

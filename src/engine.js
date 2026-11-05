@@ -15,6 +15,11 @@ export const UNITS = [
   ...Array.from({length:9},(_,b)=>DIGITS.map((_,k)=>(Math.floor(b/3)*3+Math.floor(k/3))*9+(b%3)*3+k%3)),
 ];
 const PEERS = Array.from({length:81},(_,i)=>[...new Set(UNITS.filter(u=>u.includes(i)).flat())].filter(j=>j!==i));
+/** Remove only the placed digit from its peers; keep the input intact for undo. */
+export function removePeerNotes(notes,index,value) {
+  const peers=new Set(PEERS[index]);
+  return notes.map((cellNotes,i)=>i===index?[]:peers.has(i)?cellNotes.filter(d=>d!==value):cellNotes.slice());
+}
 const norm = board => Array.from({length:81},(_,i)=>Number.isInteger(board?.[i]) && board[i]>=1 && board[i]<=9 ? board[i] : 0);
 const valid = board => UNITS.every(u=>{const a=u.map(i=>board[i]).filter(Boolean); return new Set(a).size===a.length;});
 /** Candidates reflect the supplied board. For validation, use validateEntry rather than passing guesses here. */
